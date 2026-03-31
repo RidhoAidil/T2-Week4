@@ -11,7 +11,6 @@ from PySide6.QtGui import (
 )
 
 def make_palette_icon(size: int = 32) -> QIcon:
-    """Paint palette icon — mirip emoji 🎨."""
     px = QPixmap(size, size)
     px.fill(Qt.transparent)
     p = QPainter(px)
@@ -21,15 +20,15 @@ def make_palette_icon(size: int = 32) -> QIcon:
 
     palette_path = QPainterPath()
     palette_path.moveTo(16*s, 3*s)
-    palette_path.cubicTo(8*s,  3*s,  2*s,  9*s,  2*s,  16*s)
-    palette_path.cubicTo(2*s,  23*s, 8*s,  29*s, 16*s, 29*s)
+    palette_path.cubicTo(8*s, 3*s, 2*s, 9*s, 2*s, 16*s)
+    palette_path.cubicTo(2*s, 23*s, 8*s, 29*s, 16*s, 29*s)
     palette_path.cubicTo(19*s, 29*s, 21*s, 27*s, 21*s, 25*s)
     palette_path.cubicTo(21*s, 23*s, 22*s, 22*s, 24*s, 22*s)
     palette_path.cubicTo(28*s, 22*s, 30*s, 20*s, 30*s, 17*s)
-    palette_path.cubicTo(30*s, 9*s,  24*s, 3*s,  16*s, 3*s)
+    palette_path.cubicTo(30*s, 9*s, 24*s, 3*s, 16*s, 3*s)
     palette_path.closeSubpath()
 
-    p.setBrush(QBrush(QColor("#FADADD")))   # light pink base
+    p.setBrush(QBrush(QColor("#FADADD"))) 
     p.setPen(QPen(QColor("#c0636e"), 1.2*s))
     p.drawPath(palette_path)
 
@@ -38,11 +37,11 @@ def make_palette_icon(size: int = 32) -> QIcon:
     p.drawEllipse(QRectF(22*s, 23*s, 5*s, 5*s))
 
     dots = [
-        (8*s,  10*s, "#e74c3c"),   # red
-        (14*s,  7*s, "#3498db"),   # blue
-        (20*s,  9*s, "#2ecc71"),   # green
-        (24*s, 14*s, "#f39c12"),   # orange
-        ( 8*s, 18*s, "#9b59b6"),   # purple
+        (8*s, 10*s, "#e74c3c"), 
+        (14*s, 7*s, "#3498db"), 
+        (20*s, 9*s, "#2ecc71"),  
+        (24*s, 14*s, "#f39c12"), 
+        (8*s, 18*s, "#9b59b6"), 
     ]
     r = 2.6*s
     for cx, cy, color in dots:
@@ -55,35 +54,31 @@ def make_palette_icon(size: int = 32) -> QIcon:
 
 
 def make_trash_icon(size: int = 18, color: str = "#ffffff") -> QIcon:
-    """Ikon tempat sampah / trash can."""
     px = QPixmap(size, size)
     px.fill(Qt.transparent)
     p = QPainter(px)
     p.setRenderHint(QPainter.Antialiasing)
 
-    s  = size / 18.0
-    c  = QColor(color)
+    s = size / 18.0
+    c = QColor(color)
     pen = QPen(c, 1.4*s, Qt.SolidLine, Qt.RoundCap, Qt.RoundJoin)
     p.setPen(pen)
     p.setBrush(Qt.NoBrush)
 
-    # lid
-    p.drawLine(QPointF(3*s, 5*s),  QPointF(15*s, 5*s))
-    p.drawLine(QPointF(7*s, 5*s),  QPointF(7*s,  3*s))
-    p.drawLine(QPointF(7*s, 3*s),  QPointF(11*s, 3*s))
+    p.drawLine(QPointF(3*s, 5*s), QPointF(15*s, 5*s))
+    p.drawLine(QPointF(7*s, 5*s), QPointF(7*s, 3*s))
+    p.drawLine(QPointF(7*s, 3*s), QPointF(11*s, 3*s))
     p.drawLine(QPointF(11*s, 3*s), QPointF(11*s, 5*s))
 
-    # body
     body_path = QPainterPath()
     body_path.moveTo(4.5*s, 6*s)
-    body_path.lineTo(5*s,   15*s)
-    body_path.lineTo(13*s,  15*s)
+    body_path.lineTo(5*s, 15*s)
+    body_path.lineTo(13*s, 15*s)
     body_path.lineTo(13.5*s, 6*s)
     p.drawPath(body_path)
 
-    # vertical lines inside
-    p.drawLine(QPointF(7.5*s,  7.5*s), QPointF(7.5*s,  13.5*s))
-    p.drawLine(QPointF(9*s,    7.5*s), QPointF(9*s,    13.5*s))
+    p.drawLine(QPointF(7.5*s, 7.5*s), QPointF(7.5*s, 13.5*s))
+    p.drawLine(QPointF(9*s, 7.5*s), QPointF(9*s, 13.5*s))
     p.drawLine(QPointF(10.5*s, 7.5*s), QPointF(10.5*s, 13.5*s))
 
     p.end()
@@ -99,11 +94,11 @@ class Canvas(QWidget):
         self.setMouseTracking(True)
         self.setCursor(QCursor(Qt.CrossCursor))
 
-        self._pen_color  = QColor("#e74c3c")
-        self._pen_width  = 5
+        self._pen_color = QColor("#e74c3c")
+        self._pen_width = 5
         self._last_point = QPoint()
-        self._drawing    = False
-        self._pixmap     = QPixmap(self.size())
+        self._drawing = False
+        self._pixmap = QPixmap(self.size())
         self._pixmap.fill(Qt.white)
 
     @Slot(QColor)
@@ -140,7 +135,7 @@ class Canvas(QWidget):
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
-            self._drawing    = True
+            self._drawing = True
             self._last_point = event.position().toPoint()
 
     def mouseMoveEvent(self, event):
@@ -172,8 +167,8 @@ class ColorButton(QPushButton):
 
     def __init__(self, color: QColor, name: str, parent=None):
         super().__init__(parent)
-        self._color    = color
-        self._name     = name
+        self._color = color
+        self._name = name
         self._selected = False
         self.setFixedSize(32, 32)
         self.setToolTip(name)
@@ -182,7 +177,7 @@ class ColorButton(QPushButton):
 
     def _apply_style(self, selected: bool):
         self._selected = selected
-        self.update()   # trigger paintEvent
+        self.update()
 
     def setSelected(self, selected: bool):
         self._apply_style(selected)
@@ -194,15 +189,12 @@ class ColorButton(QPushButton):
         h = self.height()
 
         if self._selected:
-            # outer white ring
             p.setBrush(QBrush(QColor("#ffffff")))
             p.setPen(Qt.NoPen)
             p.drawEllipse(2, 2, w - 4, h - 4)
-            # colour circle (slightly smaller)
             p.setBrush(QBrush(self._color))
             p.drawEllipse(5, 5, w - 10, h - 10)
         else:
-            # full colour circle
             p.setBrush(QBrush(self._color))
             p.setPen(Qt.NoPen)
             p.drawEllipse(2, 2, w - 4, h - 4)
@@ -228,7 +220,6 @@ class DrawingCanvas(QMainWindow):
         self._last_x, self._last_y = 0, 0
         self._color_buttons: list[ColorButton] = []
 
-        # ── window icon: paint palette ──
         self.setWindowIcon(make_palette_icon(64))
 
         self._build_ui()
