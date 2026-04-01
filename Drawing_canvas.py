@@ -1,3 +1,7 @@
+# Nama  : Muhammad Ridho Aidil Furqon
+# NIM   : F1D02310127
+# Kelas : C
+
 import sys
 from PySide6.QtWidgets import (
     QApplication, QMainWindow, QWidget, QToolBar,
